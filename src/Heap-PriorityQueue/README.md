@@ -73,7 +73,7 @@ interface Queue<E> {
   - 实现：可以先 extractMax, 再 add，两次 O(logn) 的操作
   - 实现：可以将堆顶元素替换后，执行 Sift Down，一次 O(logn) 操作
 - heapify: 将任意数组整理成堆的形状
-  - 依次 add ，是 O(nlogn) 时间复杂度，相比 heaify 的 O(n) 慢了
+  - 如果依次 add ，是 O(nlogn) 时间复杂度，但是相比 heaify 的 O(n) 慢了
   - 实现：从最后一个非叶子节点开始，往前进行执行 Sift Down
   - 最后一个非叶子节点的索引：也就是最后一个节点的父节点的索引
 
@@ -89,3 +89,61 @@ interface Queue<E> {
 
 ![](imgs/2022-07-07-23-40-12.png)
 ![](imgs/2022-07-07-23-43-06.png)
+
+### 优化堆排序
+
+原地堆排序步骤：
+
+1. 将数组 [0, n) 使用 heapify 整理成堆。
+2. 将数组第一个元素(堆顶)与数组最后一个元素交换位置。
+3. 对数组 [0, n - 1) 再进行 sift down 操作，整理为堆
+4. 继续 2、3 步，直到数组排好序。
+
+![](imgs/2022-07-14-22-52-33.png)
+
+### 作业
+
+从 0 实现最小堆，实际只需要修改 compare 比较函数处即可。
+
+## 基于堆的优先队列
+
+```js
+const MaxHeap = require('./MaxHeap')
+
+class PriorityQueue {
+  constructor() {
+    this.maxHeap = new MaxHeap()
+  }
+
+  getSize() {
+    return this.maxHeap.size()
+  }
+
+  isEmpty() {
+    return this.maxHeap.isEmpty()
+  }
+
+  getFront() {
+    return this.maxHeap.findMax()
+  }
+
+  // 入队
+  enqueue(e) {
+    this.maxHeap.add(e)
+  }
+
+  // 出队
+  dequeue() {
+    return this.maxHeap.extractMax()
+  }
+}
+```
+
+### Top K 问题
+
+Top K问题：
+
+- 在 N 个元素中选出最大的 K 个元素。
+- 在 N 个元素中选出最小的 K 个元素。
+
+> Select K 问题。

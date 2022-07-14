@@ -22,7 +22,10 @@ class PriorityQueue {
     this.maxHeap.add(e)
   }
 
+  // 出队
   dequeue() {
     return this.maxHeap.extractMax()
   }
 }
+
+module.exports = PriorityQueue
