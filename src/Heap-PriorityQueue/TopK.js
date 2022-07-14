@@ -10,7 +10,7 @@ class TopK {
     }
 
     for (let i = k; i < arr.length; i++) {
-      if (pq.getFront() && arr[i] < pq.getFront()) {
+      if (!pq.isEmpty() && arr[i] < pq.getFront()) {
         pq.dequeue()
         pq.enqueue(arr[i])
       }
